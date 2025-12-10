@@ -48,9 +48,11 @@ class JobStatus(str, Enum):
     """Enumeration for job statuses."""
 
     PENDING = "PENDING"
+    RUNNABLE = "RUNNABLE"
+    STARTING = "STARTING"
     RUNNING = "RUNNING"
-    SUCCEEDED = "SUCCEEDED"
     FAILED = "FAILED"
+    SUCCEEDED = "SUCCEEDED"
 
 
 class Job(BaseModel):

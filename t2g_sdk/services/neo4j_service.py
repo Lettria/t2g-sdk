@@ -18,13 +18,13 @@ class Neo4jService:
         """
 
         neo4j_uri = os.getenv("NEO4J_URI")
-        neo4j_user = os.getenv("NEO4J_USERNAME")
+        neo4j_user = os.getenv("NEO4J_USER")
         neo4j_password = os.getenv("NEO4J_PASSWORD")
         if not neo4j_uri:
             logger.error("NEO4J_URI environment variable is not set.")
             return
         if not neo4j_user:
-            logger.error("NEO4J_USERNAME environment variable is not set.")
+            logger.error("NEO4J_USER environment variable is not set.")
             return
         if not neo4j_password:
             logger.error("NEO4J_PASSWORD environment variable is not set.")
