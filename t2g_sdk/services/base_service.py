@@ -1,10 +1,11 @@
-import os
 from typing import Any
 import aiohttp
 from ..exceptions import APIException, ConfigurationException
 import logging
+from t2g_sdk.config import Settings
 
-logging.basicConfig(level=os.getenv("LOGLEVEL", "INFO"))
+settings = Settings()
+logging.basicConfig(level=settings.loglevel.upper())
 logger = logging.getLogger(__name__)
 
 

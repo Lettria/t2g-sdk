@@ -1,8 +1,9 @@
-import os
 from neo4j import GraphDatabase
 import logging
+from t2g_sdk.config import Settings
 
-logging.basicConfig(level=os.getenv("LOGLEVEL", "INFO"))
+settings = Settings()
+logging.basicConfig(level=settings.loglevel.upper())
 logger = logging.getLogger(__name__)
 
 
@@ -13,25 +14,13 @@ class Neo4jService:
         Reads a file containing Cypher queries and executes them against a Neo4j database.
 
         Args:
-            neo4j_uri (str): The URL of the Neo4j instance (e.g., 'bolt://localhost:7687')
             file_path (str): The path to the file containing Cypher queries.
         """
-
-        neo4j_uri = os.getenv("NEO4J_URI")
-        neo4j_user = os.getenv("NEO4J_USERNAME")
-        neo4j_password = os.getenv("NEO4J_PASSWORD")
-        if not neo4j_uri:
-            logger.error("NEO4J_URI environment variable is not set.")
-            return
-        if not neo4j_user:
-            logger.error("NEO4J_USERNAME environment variable is not set.")
-            return
-        if not neo4j_password:
-            logger.error("NEO4J_PASSWORD environment variable is not set.")
-            return
-
         try:
-            driver = GraphDatabase.driver(neo4j_uri, auth=(neo4j_user, neo4j_password))
+            driver = GraphDatabase.driver(
+                settings.neo4j_uri,
+                auth=(settings.neo4j_username, settings.neo4j_password),
+            )
             driver.verify_connectivity()
             logger.info("Successfully connected to Neo4j.")
         except Exception as e:

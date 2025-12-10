@@ -49,6 +49,7 @@ class JobStatus(str, Enum):
 
     PENDING = "PENDING"
     RUNNING = "RUNNING"
+    RUNNABLE = "RUNNABLE"
     SUCCEEDED = "SUCCEEDED"
     FAILED = "FAILED"
 

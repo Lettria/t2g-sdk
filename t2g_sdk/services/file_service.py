@@ -1,15 +1,14 @@
 import logging
-import os
 import hashlib
 from typing import Dict, List
 from datetime import datetime
 import aiohttp
+import os
 
 from .base_service import BaseService
 from ..models import File, FileStatus
 from ..exceptions import T2GException, APIException
 
-logging.basicConfig(level=os.getenv("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
 
