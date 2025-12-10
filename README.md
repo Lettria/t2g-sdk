@@ -125,6 +125,10 @@ You can find more examples in the [`examples/`](./examples/) directory, includin
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue if you have any feedback or suggestions.
 
+## 📧 Contact
+
+For any feedback, questions, or support, please reach out to us at [hello@lettria.com](mailto:hello@lettria.com).
+
 ## 📄 License
 
 This SDK is licensed under the MIT License.
