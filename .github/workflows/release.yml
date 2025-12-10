@@ -25,9 +25,6 @@ jobs:
           npm install -g semantic-release semantic-release-pypi @semantic-release/github @semantic-release/git
       - name: Clean dist directory
         run: rm -rf dist/
-      - name: Build
-        run: |
-          python -m build
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
