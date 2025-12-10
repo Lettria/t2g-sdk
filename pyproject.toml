@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "t2g-sdk"
-version = "0.0.0"
+version = "1.0.0rc1"
 authors = [
   { name="Victor de La Salmonière", email="victor@lettria.com" },
 ]
