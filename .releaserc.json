@@ -1,0 +1,41 @@
+{
+  "branches": [
+    "main",
+    {
+      "name": "release-candidate",
+      "prerelease": "rc"
+    }
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "semantic-release-pypi",
+      {
+        "repoUrl": "https://test.pypi.org/legacy/"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "dist/*.whl",
+            "label": "Wheel distribution"
+          },
+          {
+            "path": "dist/*.tar.gz",
+            "label": "Source distribution"
+          }
+        ]
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["pyproject.toml"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}
