@@ -10,7 +10,6 @@ async def main():
         try:
             job: Job = await client.index_file(
                 file_path="pizza.txt",
-                # ontology_path="Receipt-2154-4779.pdf",
                 ontology_path="pizza.ttl",
                 save_to_neo4j=True,
             )
