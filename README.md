@@ -25,7 +25,7 @@ This SDK is built with developers in mind, providing a clean, asynchronous clien
 You can install the T2G SDK using pip:
 
 ```bash
-pip install t2g-sdk==1.0.0rc5
+pip install t2g-sdk==1.0.0rc6
 ```
 
 ## 🚀 Getting Started
