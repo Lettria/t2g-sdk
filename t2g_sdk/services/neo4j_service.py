@@ -1,8 +1,9 @@
 from neo4j import GraphDatabase
 import logging
-from t2g_sdk.config import Settings
+from t2g_sdk.config import settings
+from t2g_sdk.exceptions import ConfigurationException
 
-settings = Settings()
+
 logging.basicConfig(level=settings.loglevel.upper())
 logger = logging.getLogger(__name__)
 
@@ -17,9 +18,17 @@ class Neo4jService:
             file_path (str): The path to the file containing Cypher queries.
         """
         try:
+            if (
+                not settings.neo4j_uri
+                or not settings.neo4j_user
+                or not settings.neo4j_password
+            ):
+                raise ConfigurationException(
+                    "Neo4j configuration is incomplete. Please check your settings."
+                )
             driver = GraphDatabase.driver(
                 settings.neo4j_uri,
-                auth=(settings.neo4j_username, settings.neo4j_password),
+                auth=(settings.neo4j_user, settings.neo4j_password),
             )
             driver.verify_connectivity()
             logger.info("Successfully connected to Neo4j.")

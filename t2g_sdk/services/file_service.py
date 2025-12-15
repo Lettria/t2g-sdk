@@ -84,9 +84,7 @@ class FileService(BaseService):
             if e.status_code == 409:
                 files = await self.find_files(source_hashes=[source_hash])
                 if not files:
-                    raise T2GException(
-                        f"File conflict (409) but could not find the existing file with hash {source_hash}."
-                    ) from e
+                    raise T2GException(e) from e
                 return files[0]
             else:
                 raise
