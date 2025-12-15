@@ -22,7 +22,7 @@ This SDK is built with developers in mind, providing a clean, asynchronous clien
 
 ## 📦 Installation
 
-You can install the T2G SDK using pip:
+You can install the SDK using pip:
 
 ```bash
 pip install t2g-sdk==1.0.0rc6
@@ -30,7 +30,7 @@ pip install t2g-sdk==1.0.0rc6
 
 ## 🚀 Getting Started
 
-To start using the T2G SDK, you will need an API key from Lettria.
+To start using the SDK, you will need an API key from Lettria.
 
 To create an API key, please visit our preview instance [here](https://app.t2g-staging.lettria.net/).
 
