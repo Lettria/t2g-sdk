@@ -4,6 +4,10 @@ from time import time
 from typing import Any, Dict, List, Optional, cast
 import aiohttp
 import logging
+import asyncio
+import itertools
+import sys
+from time import time
 
 from .base_service import BaseService
 from ..models import Job, JobStatus
@@ -100,23 +104,38 @@ class JobService(BaseService):
         timeout: int = 300,
     ) -> Job:
         """
-        Asynchronously submits a job and polls for its completion.
+        Asynchronously submits a job and polls for its completion with a terminal spinner.
         """
+
+        async def spinner():
+            for c in itertools.cycle("|/-\\"):
+                sys.stdout.write(f"\rWaiting for job {job.id}... {c}")
+                sys.stdout.flush()
+                await asyncio.sleep(0.1)
+
         start_time = time()
         job = await self.submit_job(file_id, ontology_id)
-        logger.info(f"Job {job.id} submitted, status: {job.status}")
-        while (
-            job.status not in [JobStatus.FAILED, JobStatus.SUCCEEDED]
-            and not job.stopped
-        ):
-            if time() - start_time > timeout:
-                raise T2GException(f"Timeout reached for job {job.id}")
-            await asyncio.sleep(polling_interval)
-            jobs = await self.find_jobs([job.id])
-            if not jobs:
-                raise T2GException(f"Could not find job {job.id}")
-            job = jobs[0]
-            logger.info(f"Job {job.id} status: {job.status}")
+        logger.debug(f"Job {job.id} submitted, status: {job.status}")
+
+        spin_task = asyncio.create_task(spinner())
+
+        try:
+            while (
+                job.status not in [JobStatus.FAILED, JobStatus.SUCCEEDED]
+                and not job.stopped
+            ):
+                if time() - start_time > timeout:
+                    raise T2GException(f"Timeout reached for job {job.id}")
+                await asyncio.sleep(polling_interval)
+                jobs = await self.find_jobs([job.id])
+                if not jobs:
+                    raise T2GException(f"Could not find job {job.id}")
+                job = jobs[0]
+                logger.debug(f"Job {job.id} status: {job.status}")
+        finally:
+            spin_task.cancel()
+            sys.stdout.write("\r" + " " * 50 + "\r")  # Clear spinner line
+
         if job.status == JobStatus.FAILED:
             raise T2GException(f"Job {job.id} failed.")
         return job

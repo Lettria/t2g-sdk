@@ -25,7 +25,7 @@ This SDK is built with developers in mind, providing a clean, asynchronous clien
 You can install the T2G SDK using pip:
 
 ```bash
-pip install t2g-sdk==1.0.0rc5
+pip install t2g-sdk==1.0.0rc6
 ```
 
 ## 🚀 Getting Started
@@ -40,7 +40,7 @@ Access to the API is managed by whitelisting. If you require access, please cont
 
 The SDK can be configured by setting the following environment variable:
 
-- `LETTRA_API_KEY`: Your Lettria API key.
+- `LETTRIA_API_KEY`: Your Lettria API key.
 
 Alternatively, you can pass this value directly to the `T2GClient` constructor.
 
@@ -101,7 +101,7 @@ The SDK uses `pydantic-settings` for configuration management. You can configure
 
 | Argument         | Environment Variable | Description                                      |
 | ---------------- | -------------------- | ------------------------------------------------ |
-| `api_key`        | `LETTRA_API_KEY`     | **Required.** Your Lettria API key.              |
+| `api_key`        | `LETTRIA_API_KEY`    | **Required.** Your Lettria API key.              |
 | `neo4j_uri`      | `NEO4J_URI`          | (Optional) The URI for your Neo4j instance.      |
 | `neo4j_user`     | `NEO4J_USER`         | (Optional) The username for your Neo4j instance. |
 | `neo4j_password` | `NEO4J_PASSWORD`     | (Optional) The password for your Neo4j instance. |

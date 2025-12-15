@@ -1,15 +1,14 @@
 import logging
-import os
 import hashlib
 from typing import Dict, List
 from datetime import datetime
 import aiohttp
+import os
 
 from .base_service import BaseService
 from ..models import File, FileStatus
 from ..exceptions import T2GException, APIException
 
-logging.basicConfig(level=os.getenv("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
 
@@ -85,9 +84,7 @@ class FileService(BaseService):
             if e.status_code == 409:
                 files = await self.find_files(source_hashes=[source_hash])
                 if not files:
-                    raise T2GException(
-                        f"File conflict (409) but could not find the existing file with hash {source_hash}."
-                    ) from e
+                    raise T2GException(e) from e
                 return files[0]
             else:
                 raise

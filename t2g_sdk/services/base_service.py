@@ -1,10 +1,10 @@
-import os
 from typing import Any
 import aiohttp
 from ..exceptions import APIException, ConfigurationException
 import logging
+from t2g_sdk.config import settings
 
-logging.basicConfig(level=os.getenv("LOGLEVEL", "INFO"))
+logging.basicConfig(level=settings.loglevel.upper())
 logger = logging.getLogger(__name__)
 
 
@@ -56,7 +56,11 @@ class BaseService:
 
                     raise APIException(
                         status_code=response.status,
-                        message=str(error_body),
+                        message=(
+                            str(error_body["message"])
+                            if isinstance(error_body, dict) and "message" in error_body
+                            else str(error_body)
+                        ),
                     )
                 return await response.json()
         except aiohttp.ClientError as e:

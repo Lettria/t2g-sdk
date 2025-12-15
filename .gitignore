@@ -1,2 +1,6 @@
 .env*
 dist/
+*.cql
+*.ttl
+*.pdf
+examples/save_neo4j

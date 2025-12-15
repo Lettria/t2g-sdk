@@ -85,9 +85,7 @@ class OntologyService(BaseService):
             if e.status_code == 409:
                 ontologies = await self.find_ontologies(source_hashes=[source_hash])
                 if not ontologies:
-                    raise T2GException(
-                        f"Ontology conflict (409) but could not find the existing ontology with hash {source_hash}."
-                    ) from e
+                    raise T2GException(e) from e
                 return ontologies[0]
             else:
                 raise

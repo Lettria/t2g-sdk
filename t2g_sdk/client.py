@@ -8,12 +8,16 @@ from .exceptions import ConfigurationException
 from .services.file_service import FileService
 from .services.job_service import JobService
 from .services.ontology_service import OntologyService
+from t2g_sdk.config import settings
+
+
 class T2GClient:
     """
     A client for interacting with the T2G API.
     This client handles authentication and provides methods for accessing the various
     API endpoints. It requires the `LETTRIA_API_KEY` environment variable to be set.
     """
+
     def __init__(self, api_host: Optional[str] = None):
         """
         Initializes the T2GClient.
@@ -21,11 +25,7 @@ class T2GClient:
             api_host: The API host to connect to. Defaults to the value of the
                       `T2G_API_HOST` environment variable, or the default staging URL.
         """
-        try:
-            self.settings = Settings(**{})
-        except ValidationError as e:
-            missing_fields = ", ".join([err["loc"][0] for err in e.errors()])
-            raise ConfigurationException(f"Missing required configuration: {missing_fields}")
+        self.settings = settings
         self.api_host = api_host or self.settings.t2g_api_host
         self._api_token = self.settings.lettria_api_key
         self._session: Optional[aiohttp.ClientSession] = None
