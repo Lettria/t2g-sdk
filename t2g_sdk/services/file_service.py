@@ -90,7 +90,9 @@ class FileService(BaseService):
                 raise
 
         try:
-            async with aiohttp.ClientSession() as upload_session:
+            async with aiohttp.ClientSession(
+                connector=self._connector
+            ) as upload_session:
                 async with upload_session.put(upload_url, data=file_content) as resp:
                     resp.raise_for_status()
         except FileNotFoundError:

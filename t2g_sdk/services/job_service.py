@@ -46,7 +46,9 @@ class JobService(BaseService):
         if output_path is None:
             output_path = f"{job_id}.output"
         download_urls = await self._get_download_urls(job_id)
-        async with aiohttp.ClientSession() as download_session:
+        async with aiohttp.ClientSession(
+            connector=self._connector
+        ) as download_session:
             await self._download_file(
                 download_session,
                 download_urls["ttlFileDownloadUrl"],

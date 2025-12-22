@@ -89,11 +89,106 @@ The asynchronous client for interacting with the T2G API.
 
 **Methods:**
 
-- `async def index_file(file_path: str, ontology_path: str = None, save_to_neo_4j: bool = False) -> Job`:
-  Indexes a file and returns a `Job` object with the results.
-  - `file_path`: Path to the file to index.
+- `async def index_file(file_path: str, ontology_path: str = None, output_path: str = None, save_to_neo4j: bool = False) -> Job`:
+  Processes a file by uploading it, running a job, and downloading the output.
+  - `file_path`: Path to the file to process.
   - `ontology_path` (optional): Path to an ontology file (e.g., `.ttl`).
+  - `output_path` (optional): The path to save the output to. If not provided, a default path will be used.
   - `save_to_neo4j` (optional): If `True`, saves the result to your configured Neo4j instance.
+
+**Properties:**
+
+- `file` -> `FileService`: Provides access to file-related operations.
+- `job` -> `JobService`: Provides access to job-related operations.
+- `ontology` -> `OntologyService`: Provides access to ontology-related operations.
+- `neo4j` -> `Neo4jService`: Provides access to Neo4j-related operations.
+
+---
+
+### Services
+
+### `T2GClient.file` -> `FileService`
+
+The `FileService` handles file-related operations and is accessed via the `file` property of an active `T2GClient` instance.
+
+**Methods:**
+
+- `async def upload_file(file_path: str) -> File`:
+  Uploads a file to the T2G API.
+  - `file_path`: The path to the file to upload.
+- `async def create_file(name: str, source_hash: str) -> Dict`:
+  Creates a file record and returns a presigned URL for uploading.
+  - `name`: The name of the file.
+  - `source_hash`: The SHA256 hash of the file's content.
+- `async def find_files(ids: List[str] = None, source_hashes: List[str] = None) -> List[File]`:
+  Finds files by their IDs or source hashes.
+  - `ids` (optional): A list of file IDs to find.
+  - `source_hashes` (optional): A list of source hashes to find.
+
+### `T2GClient.job` -> `JobService`
+
+The `JobService` handles job-related operations and is accessed via the `job` property of an active `T2GClient` instance.
+
+**Methods:**
+
+- `async def run_job(file_id: str, ontology_id: str = None, polling_interval: int = 5, timeout: int = 300) -> Job`:
+  Submits a job and waits for its completion.
+  - `file_id`: The ID of the file to process.
+  - `ontology_id` (optional): The ID of the ontology to use.
+  - `polling_interval` (optional): The interval in seconds to poll for job status.
+  - `timeout` (optional): The timeout in seconds for the job to complete.
+- `async def submit_job(file_id: str, ontology_id: str = None) -> Job`:
+  Submits a job for processing.
+  - `file_id`: The ID of the file to process.
+  - `ontology_id` (optional): The ID of the ontology to use.
+- `async def find_jobs(ids: List[str]) -> List[Job]`:
+  Finds jobs by their IDs.
+  - `ids`: A list of job IDs to find.
+- `async def download_job_output(job_id: str, output_path: str = None) -> str`:
+  Downloads the output of a completed job.
+  - `job_id`: The ID of the job to download the output from.
+  - `output_path` (optional): The path to save the output to.
+
+### `T2GClient.ontology` -> `OntologyService`
+
+The `OntologyService` handles ontology-related operations and is accessed via the `ontology` property of an active `T2GClient` instance.
+
+**Methods:**
+
+- `async def upload_ontology(ontology_path: str) -> Ontology`:
+  Uploads an ontology file to the T2G API.
+  - `ontology_path`: The path to the ontology file to upload.
+- `async def create_ontology(name: str, source_hash: str) -> Dict`:
+  Creates an ontology record and returns a presigned URL for uploading.
+  - `name`: The name of the ontology.
+  - `source_hash`: The SHA256 hash of the ontology file's content.
+- `async def find_ontologies(ids: List[str] = None, source_hashes: List[str] = None) -> List[Ontology]`:
+  Finds ontologies by their IDs or source hashes.
+  - `ids` (optional): A list of ontology IDs to find.
+  - `source_hashes` (optional): A list of source hashes to find.
+
+### `T2GClient.neo4j` -> `Neo4jService`
+
+The `Neo4jService` handles operations related to Neo4j and is accessed via the `neo4j` property of an active `T2GClient` instance.
+
+**Methods:**
+
+- `async def save_output_to_neo4j(file_path: str)`:
+  Saves the output of a job (in CQL format) to a Neo4j database.
+  - `file_path`: The path to the CQL file to save.
+
+---
+
+### Models
+
+The SDK uses `pydantic` models to represent the data returned by the API.
+
+- **`Job`**: Represents a job with its `id` and `status`.
+- **`File`**: Represents a file with its `id`, `name`, `status`, and `created_at`.
+- **`Ontology`**: Represents an ontology with its `id`, `name`, `status`, and `created_at`.
+- **`JobStatus`**: An `Enum` for the status of a job (`PENDING`, `PROCESSING`, `SUCCEEDED`, `FAILED`).
+- **`FileStatus`**: An `Enum` for the status of a file (`UPLOADED`, `PENDING`).
+- **`OntologyStatus`**: An `Enum` for the status of an ontology (`UPLOADED`, `PENDING`).
 
 ## ⚙️ Configuration Details
 

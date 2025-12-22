@@ -21,6 +21,7 @@ dependencies = [
     "neo4j",
     "pydantic",
     "pydantic-settings",
+    "certifi"
 ]
 
 

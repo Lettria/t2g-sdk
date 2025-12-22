@@ -1,5 +1,7 @@
 from typing import Dict, Optional
 import aiohttp
+import certifi
+import ssl
 from pydantic import ValidationError
 from t2g_sdk.services.neo4j_service import Neo4jService
 from .config import Settings
@@ -29,16 +31,21 @@ class T2GClient:
         self.api_host = api_host or self.settings.t2g_api_host
         self._api_token = self.settings.lettria_api_key
         self._session: Optional[aiohttp.ClientSession] = None
+        self._connector: Optional[aiohttp.TCPConnector] = None
         self._file: Optional[FileService] = None
         self._job: Optional[JobService] = None
         self._ontology: Optional[OntologyService] = None
         self._neo4j: Optional[Neo4jService] = None
 
     async def __aenter__(self):
-        self._session = aiohttp.ClientSession(headers=self._get_headers())
-        self._file = FileService(self._session, self.api_host)
-        self._job = JobService(self._session, self.api_host)
-        self._ontology = OntologyService(self._session, self.api_host)
+        ssl_context = ssl.create_default_context(cafile=certifi.where())
+        self._connector = aiohttp.TCPConnector(ssl=ssl_context)
+        self._session = aiohttp.ClientSession(
+            headers=self._get_headers(), connector=self._connector
+        )
+        self._file = FileService(self._session, self.api_host, self._connector)
+        self._job = JobService(self._session, self.api_host, self._connector)
+        self._ontology = OntologyService(self._session, self.api_host, self._connector)
         self._neo4j = Neo4jService()
         return self
 

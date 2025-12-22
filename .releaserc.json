@@ -10,6 +10,27 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
+      "semantic-release-replace-plugin",
+      {
+        "replacements": [
+          {
+            "files": ["README.md"],
+            "from": "pip install t2g-sdk==.*",
+            "to": "pip install t2g-sdk==${nextRelease.version}",
+            "results": [
+              {
+                "file": "README.md",
+                "hasChanged": true,
+                "numMatches": 1,
+                "numReplacements": 1
+              }
+            ],
+            "countMatches": true
+          }
+        ]
+      }
+    ],
+    [
       "semantic-release-pypi",
       {
         "repoUrl": "https://upload.pypi.org/legacy/"
@@ -33,7 +54,7 @@
     [
       "@semantic-release/git",
       {
-        "assets": ["pyproject.toml"],
+        "assets": ["pyproject.toml", "README.md"],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ]

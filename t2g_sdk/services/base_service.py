@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 import aiohttp
 from ..exceptions import APIException, ConfigurationException
 import logging
@@ -9,9 +9,15 @@ logger = logging.getLogger(__name__)
 
 
 class BaseService:
-    def __init__(self, session: aiohttp.ClientSession, api_host: str):
+    def __init__(
+        self,
+        session: aiohttp.ClientSession,
+        api_host: str,
+        connector: Optional[aiohttp.TCPConnector] = None,
+    ):
         self._session = session
         self.api_host = api_host
+        self._connector = connector
 
     async def _request(
         self,
@@ -29,10 +35,7 @@ class BaseService:
         url = f"{self.api_host}{endpoint}"
         logger.debug("Making async API request: %s %s", method.upper(), url)
         try:
-            is_ssl = url.startswith("https://")
-            async with self._session.request(
-                method, url, ssl=is_ssl, **kwargs
-            ) as response:
+            async with self._session.request(method, url, **kwargs) as response:
                 if response.status >= 400:
                     try:
                         error_body = await response.json()

@@ -91,7 +91,9 @@ class OntologyService(BaseService):
                 raise
 
         try:
-            async with aiohttp.ClientSession() as upload_session:
+            async with aiohttp.ClientSession(
+                connector=self._connector
+            ) as upload_session:
                 async with upload_session.put(
                     upload_url, data=ontology_content
                 ) as resp:
