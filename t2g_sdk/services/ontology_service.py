@@ -91,13 +91,10 @@ class OntologyService(BaseService):
                 raise
 
         try:
-            async with aiohttp.ClientSession(
-                connector=self._connector
-            ) as upload_session:
-                async with upload_session.put(
-                    upload_url, data=ontology_content
-                ) as resp:
-                    resp.raise_for_status()
+            async with self._session.put(
+                upload_url, data=ontology_content
+            ) as resp:
+                resp.raise_for_status()
         except FileNotFoundError:
             raise T2GException(f"Local ontology not found at: {ontology_path}")
         except aiohttp.ClientResponseError as e:

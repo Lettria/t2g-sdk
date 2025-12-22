@@ -37,8 +37,8 @@ async def main(script_input: str):
         {data.model_dump_json(indent=2)}
 
         The report should include key details and insights derived from the data.
-        Be concise and informative but.
-        Only mention informations that are related to {script_input} directly or indirectly. 
+        Be concise and informative.
+        Only mention informations that are related to {script_input} directly or indirectly.
     """
 
     report = genai_client.models.generate_content(

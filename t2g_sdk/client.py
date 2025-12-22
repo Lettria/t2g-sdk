@@ -43,9 +43,9 @@ class T2GClient:
         self._session = aiohttp.ClientSession(
             headers=self._get_headers(), connector=self._connector
         )
-        self._file = FileService(self._session, self.api_host, self._connector)
-        self._job = JobService(self._session, self.api_host, self._connector)
-        self._ontology = OntologyService(self._session, self.api_host, self._connector)
+        self._file = FileService(self._session, self.api_host)
+        self._job = JobService(self._session, self.api_host)
+        self._ontology = OntologyService(self._session, self.api_host)
         self._neo4j = Neo4jService()
         return self
 

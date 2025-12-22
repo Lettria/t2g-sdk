@@ -13,11 +13,9 @@ class BaseService:
         self,
         session: aiohttp.ClientSession,
         api_host: str,
-        connector: Optional[aiohttp.TCPConnector] = None,
     ):
         self._session = session
         self.api_host = api_host
-        self._connector = connector
 
     async def _request(
         self,

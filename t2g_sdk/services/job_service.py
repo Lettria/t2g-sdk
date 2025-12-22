@@ -46,19 +46,16 @@ class JobService(BaseService):
         if output_path is None:
             output_path = f"{job_id}.output"
         download_urls = await self._get_download_urls(job_id)
-        async with aiohttp.ClientSession(
-            connector=self._connector
-        ) as download_session:
-            await self._download_file(
-                download_session,
-                download_urls["ttlFileDownloadUrl"],
-                f"{output_path}.ttl",
-            )
-            await self._download_file(
-                download_session,
-                download_urls["cqlFileDownloadUrl"],
-                f"{output_path}.cql",
-            )
+        await self._download_file(
+            self._session,
+            download_urls["ttlFileDownloadUrl"],
+            f"{output_path}.ttl",
+        )
+        await self._download_file(
+            self._session,
+            download_urls["cqlFileDownloadUrl"],
+            f"{output_path}.cql",
+        )
         return output_path
 
     async def _get_download_urls(self, job_id: str) -> Dict[str, str]:
@@ -103,7 +100,7 @@ class JobService(BaseService):
         file_id: str,
         ontology_id: str | None = None,
         polling_interval: int = 5,
-        timeout: int = 300,
+        timeout: int = 3600,
     ) -> Job:
         """
         Asynchronously submits a job and polls for its completion with a terminal spinner.
