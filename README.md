@@ -216,9 +216,11 @@ It is recommended to wrap your API calls in a `try...except` block to handle the
 
 ## 📂 Examples
 
-You can find more examples in the [`examples/`](./examples/) directory, including:
+You can find more examples in the [`examples/`](./examples/) directory. Each example includes a `README.md` with instructions on how to run it.
 
-- `index_file/`: A simple demonstration of how to index a file.
+- [`index_file/`](./examples/index_file/README.md): A simple demonstration of how to index a file.
+- [`simple-reporting/`](./examples/simple-reporting/README.md): An advanced example of how to generate a report from the indexed data.
+- [`upload_file/`](./examples/upload_file/README.md): A basic example of how to upload a file.
 
 ## 🤝 Contributing
 
