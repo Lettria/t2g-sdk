@@ -1,10 +1,8 @@
+from dotenv import load_dotenv
+
+load_dotenv()
 import asyncio
-import json
-import logging
 import sys
-from t2g_sdk.client import T2GClient
-from t2g_sdk.exceptions import T2GException
-from t2g_sdk.models import Job
 from simple_graph_retriever.client import GraphRetrievalClient
 from simple_graph_retriever.models import RetrievalConfig
 from google import genai
