@@ -90,8 +90,9 @@ class FileService(BaseService):
                 raise
 
         try:
-            async with self._session.put(upload_url, data=file_content) as resp:
-                resp.raise_for_status()
+            async with aiohttp.ClientSession() as s3_session:
+                async with s3_session.put(upload_url, data=file_content) as resp:
+                    resp.raise_for_status()
         except FileNotFoundError:
             raise T2GException(f"Local file not found at: {file_path}")
         except aiohttp.ClientResponseError as e:

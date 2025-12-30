@@ -46,16 +46,17 @@ class JobService(BaseService):
         if output_path is None:
             output_path = f"{job_id}.output"
         download_urls = await self._get_download_urls(job_id)
-        await self._download_file(
-            self._session,
-            download_urls["ttlFileDownloadUrl"],
-            f"{output_path}.ttl",
-        )
-        await self._download_file(
-            self._session,
-            download_urls["cqlFileDownloadUrl"],
-            f"{output_path}.cql",
-        )
+        async with aiohttp.ClientSession() as download_session:
+            await self._download_file(
+                download_session,
+                download_urls["ttlFileDownloadUrl"],
+                f"{output_path}.ttl",
+            )
+            await self._download_file(
+                download_session,
+                download_urls["cqlFileDownloadUrl"],
+                f"{output_path}.cql",
+            )
         return output_path
 
     async def _get_download_urls(self, job_id: str) -> Dict[str, str]:
