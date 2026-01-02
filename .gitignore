@@ -3,3 +3,4 @@ dist/
 *.cql
 *.ttl
 examples/save_neo4j
+examples/upload_ontology

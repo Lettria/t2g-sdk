@@ -91,10 +91,11 @@ class OntologyService(BaseService):
                 raise
 
         try:
-            async with self._session.put(
-                upload_url, data=ontology_content
-            ) as resp:
-                resp.raise_for_status()
+            async with aiohttp.ClientSession() as s3_session:
+                async with s3_session.put(
+                    upload_url, data=ontology_content
+                ) as resp:
+                    resp.raise_for_status()
         except FileNotFoundError:
             raise T2GException(f"Local ontology not found at: {ontology_path}")
         except aiohttp.ClientResponseError as e:
