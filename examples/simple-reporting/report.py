@@ -32,22 +32,23 @@ async def main(script_input: str):
     )
     report_prompt = f"""
         Provide a report summarizing the following information about {script_input}:
-        {data.model_dump_json(indent=2)}
+        {data.to_markdown()}
 
         The report should include key details and insights derived from the data.
         Be concise and informative.
         Only mention informations that are related to {script_input} directly or indirectly.
+        Use tables when relevant to present data clearly.
     """
 
     report = genai_client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3-flash-preview",
         contents=report_prompt,
         config=genai_types.GenerateContentConfig(
             thinking_config=genai_types.ThinkingConfig(thinking_budget=128)
         ),
     )
     if report.text:
-        with open(f"./output/report_{script_input}.md", "w") as f:
+        with open(f"./output/report_{script_input.replace(' ', '_')}.md", "w") as f:
             f.write(f"# Report on {script_input}\n\n")
             f.write(report.text)
 
