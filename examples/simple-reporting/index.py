@@ -14,8 +14,9 @@ from simple_graph_retriever.client import GraphRetrievalClient
 async def main(file_path: str):
     async with T2GClient() as client:
         try:
-            job: Job = await client.index_file(
+            job: Job = await client.build_graph(
                 file_path=file_path,
+                output_path="./output/graph",
                 save_to_neo4j=True,
             )
             GraphRetrievalClient().index()

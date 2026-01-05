@@ -9,5 +9,5 @@ This example demonstrates how to use the `T2GClient` to index a file with an ass
 
 2.  **Run the script:**
     ```bash
-    python index_file.py
+    python build_graph.py
     ```

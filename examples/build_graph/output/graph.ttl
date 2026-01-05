@@ -1,0 +1,19 @@
+@prefix pizza: <http://www.example.org/ontologies/pizza/pizza.owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix data: <http://example.org/data/> .
+data:cfa3aa90-89fe-4709-9fec-b3b9c9de2710 pizza:hasTopping data:e7501975-78b5-496c-9de0-a14ae34de2b2 ;
+	rdfs:label "Margherita Delight" .
+data:e7501975-78b5-496c-9de0-a14ae34de2b2 rdfs:label "fresh tomato sauce" .
+data:cfa3aa90-89fe-4709-9fec-b3b9c9de2710 pizza:hasBase data:6860e2e8-9de7-4f96-988f-f2b5430101ec .
+data:6860e2e8-9de7-4f96-988f-f2b5430101ec rdfs:label "thin crust base" .
+data:cfa3aa90-89fe-4709-9fec-b3b9c9de2710 pizza:hasTopping data:eeaef187-ebe2-48cc-98a4-8d7ba23ccaa4 .
+data:eeaef187-ebe2-48cc-98a4-8d7ba23ccaa4 pizza:hasName "mozzarella cheese" .
+data:6860e2e8-9de7-4f96-988f-f2b5430101ec pizza:hasName "thin crust base" .
+data:cfa3aa90-89fe-4709-9fec-b3b9c9de2710 pizza:hasName "Margherita Delight" .
+data:eeaef187-ebe2-48cc-98a4-8d7ba23ccaa4 rdfs:label "mozzarella cheese" .
+data:e7501975-78b5-496c-9de0-a14ae34de2b2 pizza:hasName "fresh tomato sauce" .
+data:cfa3aa90-89fe-4709-9fec-b3b9c9de2710 a pizza:MargheritaPizza .
+data:eeaef187-ebe2-48cc-98a4-8d7ba23ccaa4 a pizza:CheeseTopping .
+data:6860e2e8-9de7-4f96-988f-f2b5430101ec a pizza:PizzaBase .
+data:e7501975-78b5-496c-9de0-a14ae34de2b2 a pizza:Topping .

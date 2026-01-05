@@ -101,6 +101,17 @@ class T2GClient:
         output_path: Optional[str] = None,
         save_to_neo4j: bool = False,
     ) -> Job:
+        return await self.build_graph(
+            file_path, ontology_path, output_path, save_to_neo4j
+        )
+
+    async def build_graph(
+        self,
+        file_path: str,
+        ontology_path: Optional[str] = None,
+        output_path: Optional[str] = None,
+        save_to_neo4j: bool = False,
+    ) -> Job:
         """
         Processes a file by uploading it, optionally with an ontology, running a
         job, and downloading the output.

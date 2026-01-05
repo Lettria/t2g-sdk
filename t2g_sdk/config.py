@@ -36,10 +36,6 @@ class Settings(BaseSettings):
 try:
     settings = Settings(**{})
 except ValidationError as e:
-    missing_fields = [
-        error["loc"][0] for error in e.errors() if error["type"] == "missing"
-    ]
-    logger.error(
-        f"Missing configuration fields: {', '.join(str(field) for field in missing_fields)}"
-    )
+    logger.error(e.json())
+
     sys.exit(1)

@@ -6,7 +6,7 @@ from google.genai import types as genai_types
 
 async def main():
 
-    file_name = "LOREAL_Rapport_Annuel_2024.pdf"
+    file_name = "assets/LOREAL_Rapport_Annuel_2024.pdf"
     doc_data = None
     with open(file_name, "rb") as f:
         doc_data = f.read()
@@ -14,8 +14,9 @@ async def main():
     genai_client = genai.Client()
 
     prompt = """Convert this document in markdown."""
+    print("Parsing document to markdown...")
     parsed = genai_client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3-flash-preview",
         contents=[
             genai_types.Part.from_bytes(
                 data=doc_data,

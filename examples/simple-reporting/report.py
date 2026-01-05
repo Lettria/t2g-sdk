@@ -47,7 +47,7 @@ async def main(script_input: str):
         ),
     )
     if report.text:
-        with open(f"report_{script_input}.md", "w") as f:
+        with open(f"./output/report_{script_input}.md", "w") as f:
             f.write(f"# Report on {script_input}\n\n")
             f.write(report.text)
 

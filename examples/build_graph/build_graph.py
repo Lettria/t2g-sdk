@@ -8,10 +8,13 @@ from t2g_sdk.models import Job
 async def main():
     async with T2GClient() as client:
         try:
-            await client.file.upload_file(
-                file_path="pizza.txt",
+            job: Job = await client.build_graph(
+                file_path="assets/pizza.txt",
+                ontology_path="assets/pizza.ttl",
+                output_path="./output/graph",
+                save_to_neo4j=True,
             )
-            print("File uploaded successfully")
+            print("Job completed successfully:", job)
         except Exception as e:
             logging.error(e)
 

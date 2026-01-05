@@ -53,34 +53,34 @@ The application workflow consists of three main steps:
 
 1. **Convert PDF to Markdown:**
 
-   The `to_markdown.py` script converts the provided PDF document (`LOREAL_Rapport_Annuel_2024.pdf`) into a Markdown file.
+   The `to_markdown.py` script converts the provided PDF document (`assets/LOREAL_Rapport_Annuel_2024.pdf`) into a Markdown file.
 
    ```bash
    python to_markdown.py
    ```
 
-   This will create a file named `LOREAL_Rapport_Annuel_2024.md`.
+   This will create a file named `assets/LOREAL_Rapport_Annuel_2024.md`.
 
 2. **Index the document:**
 
    The `index.py` script takes the Markdown file, processes it with the T2G SDK, and stores the resulting knowledge graph in Neo4j.
 
    ```bash
-   python index.py LOREAL_Rapport_Annuel_2024.md
+   python index.py assets/LOREAL_Rapport_Annuel_2024.md
    ```
 
 3. **Generate a report:**
 
-   The `reporting.py` script allows you to query the knowledge graph and generate a report. You can provide a query as a command-line argument.
+   The `report.py` script allows you to query the knowledge graph and generate a report. You can provide a query as a command-line argument.
 
    ```bash
-   python reporting.py "your query here"
+   python report.py "your query here"
    ```
 
    For example:
 
    ```bash
-   python reporting.py "main activities"
+   python report.py "main activities"
    ```
 
    The script will use the query to retrieve relevant information from the knowledge graph, generate a report using a language model, and save the report to a Markdown file named `report_<your_query>.md`.

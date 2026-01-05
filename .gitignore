@@ -1,6 +1,7 @@
 .env*
 dist/
 *.cql
-*.ttl
+*.output.ttl
 examples/save_neo4j
 examples/upload_ontology
+examples/upload_file
