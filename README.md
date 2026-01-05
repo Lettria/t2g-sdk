@@ -23,7 +23,7 @@ This SDK is built with developers in mind, providing a clean, asynchronous clien
 ## 📦 Installation
 
 ```bash
-pip install t2g-sdk==1.0.0-rc.12
+pip install t2g-sdk==1.0.0-rc.13
 ```
 
 ## 🚀 Getting Started
