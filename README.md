@@ -34,18 +34,22 @@ pip install t2g-sdk==1.0.0-rc.14
 
 ## 🚀 Quick Start
 
-To use the SDK, you need an API key from Lettria. Get in touch with us at [hello@lettria.com](mailto:hello@lettria.com) to get started.
+To start using the SDK, you will need an API key from Lettria.
+
+To create an API key, please visit our preview instance [here](https://app.t2g-staging.lettria.net/).
+
+Access to the API is managed by whitelisting. If you require access, please contact us at [hello@lettria.com](mailto:hello@lettria.com) to request whitelisting.
 
 ### Configuration
 
 The SDK can be configured via environment variables. The `T2GClient` will automatically load them. You can place them in a `.env` file in your project root.
 
-| Variable          | Description                                | Required |
-|-------------------|--------------------------------------------|----------|
-| `LETTRIA_API_KEY` | Your unique API key for the Lettria API.   | Yes      |
-| `NEO4J_URI`       | The URI for your Neo4j database instance.  | No       |
-| `NEO4J_USER`      | The username for your Neo4j database.      | No       |
-| `NEO4J_PASSWORD`  | The password for your Neo4j database.      | No       |
+| Variable          | Description                               | Required |
+| ----------------- | ----------------------------------------- | -------- |
+| `LETTRIA_API_KEY` | Your unique API key for the Lettria API.  | Yes      |
+| `NEO4J_URI`       | The URI for your Neo4j database instance. | No       |
+| `NEO4J_USER`      | The username for your Neo4j database.     | No       |
+| `NEO4J_PASSWORD`  | The password for your Neo4j database.     | No       |
 
 Here is an example `.env` file:
 
