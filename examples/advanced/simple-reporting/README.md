@@ -11,7 +11,6 @@ This guide shows how to build a simple reporting app with the T2G SDK. You'll in
 
     ```bash
     cp template.env .env
-    # Edit .env with your T2G SDK and GEMINI_API_KEY
     ```
 
 2.  **Install Dependencies & Start Services**:

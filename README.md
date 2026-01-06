@@ -3,7 +3,20 @@
 [![PyPI version](https://badge.fury.io/py/t2g-sdk.svg)](https://badge.fury.io/py/t2g-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Welcome to the official Python SDK for Lettria's Text-to-Graph (T2G) API! This SDK makes it easy to turn unstructured text into powerful knowledge graphs right from your Python applications. ✨
+In today's world, a vast amount of valuable information is locked away in unstructured text—documents, articles, emails, and more. While AI and analytics tools are incredibly powerful, they struggle to make sense of this chaotic data. They need structured, connected information to reason effectively.
+
+This is where the gap lies:
+
+| **What Organizations Have** | **What AI Systems Need**        |
+| :-------------------------- | :------------------------------ |
+| 📄 **Unstructured Text**    | 🔗 **Connected Knowledge**      |
+| Chaotic, disconnected data  | Structured, queryable graphs    |
+| Implicit relationships      | Explicit entities and relations |
+| Hard to query and analyze   | Ready for deep analysis         |
+
+Without a way to bridge this gap, AI systems can't unlock the full potential of your data. They might miss critical insights, provide incomplete answers, or fail to see the bigger picture.
+
+Lettria's Text-to-Graph SDK is designed to solve this problem. It transforms your raw text into a structured knowledge graph, making it instantly usable for AI applications, from advanced search to complex reasoning.
 
 ## 🌟 Features
 
@@ -76,13 +89,13 @@ async def build_graph(
 
 Processes a file by uploading it, optionally with an ontology, running a job, and downloading the output.
 
-| Parameter     | Type          | Description                                                                 | Default   |
-|---------------|---------------|-----------------------------------------------------------------------------|-----------|
-| `file_path`   | `str`         | The path to the file to process.                                            |           |
-| `ontology_path` | `Optional[str]` | The path to the ontology file to use.                                       | `None`    |
-| `output_path` | `Optional[str]` | The path to save the output to. If not provided, a default path will be used. | `None`    |
-| `save_to_neo4j` | `bool`        | Whether to save the output to Neo4j.                                        | `False`   |
-| `refresh_graph` | `bool`        | Whether to force a new job to be created (refresh the graph).               | `False`   |
+| Parameter       | Type            | Description                                                                   | Default |
+| --------------- | --------------- | ----------------------------------------------------------------------------- | ------- |
+| `file_path`     | `str`           | The path to the file to process.                                              |         |
+| `ontology_path` | `Optional[str]` | The path to the ontology file to use.                                         | `None`  |
+| `output_path`   | `Optional[str]` | The path to save the output to. If not provided, a default path will be used. | `None`  |
+| `save_to_neo4j` | `bool`          | Whether to save the output to Neo4j.                                          | `False` |
+| `refresh_graph` | `bool`          | Whether to force a new job to be created (refresh the graph).                 | `False` |
 
 ## 📂 Examples
 
