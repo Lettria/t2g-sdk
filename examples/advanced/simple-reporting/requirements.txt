@@ -1,4 +1,4 @@
-t2g-sdk==1.0.0rc12
+t2g-sdk==1.0.0rc14
 simple_graph_retriever==1.0.0-rc.8
 google-genai==1.41.0
 python-dotenv

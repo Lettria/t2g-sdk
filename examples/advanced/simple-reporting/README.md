@@ -25,7 +25,7 @@ This guide shows how to build a simple reporting app with the T2G SDK. You'll in
     - **Convert PDF to Markdown**:
 
       ```bash
-      python pdf_to_markdown.py
+      python pdf_to_markdown.py assets/LOREAL_Rapport_Annuel_2024.pdf
       ```
 
     - **Index the Document**:
