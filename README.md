@@ -16,7 +16,7 @@ This is where the gap lies:
 
 Without a way to bridge this gap, AI systems can't unlock the full potential of your data. They might miss critical insights, provide incomplete answers, or fail to see the bigger picture.
 
-Lettria's Text-to-Graph SDK is designed to solve this problem. It transforms your raw text into a structured knowledge graph, making it instantly usable for AI applications, from advanced search to complex reasoning.
+Lettria's Text-to-Graph SDK is designed to solve this problem. It transforms your raw text into a structured knowledge graph, making it instantly usable for AI applications, from advanced search to complex reasoning. Furthermore, the SDK empowers users to leverage their own ontologies, providing a flexible way to define the desired data schema. This greatly reduces data complexity and ensures the generated knowledge graph is precisely tailored to specific use cases.
 
 ## 🌟 Features
 
@@ -38,7 +38,16 @@ To use the SDK, you need an API key from Lettria. Get in touch with us at [hello
 
 ### Configuration
 
-Create a `.env` file and add your credentials:
+The SDK can be configured via environment variables. The `T2GClient` will automatically load them. You can place them in a `.env` file in your project root.
+
+| Variable          | Description                                | Required |
+|-------------------|--------------------------------------------|----------|
+| `LETTRIA_API_KEY` | Your unique API key for the Lettria API.   | Yes      |
+| `NEO4J_URI`       | The URI for your Neo4j database instance.  | No       |
+| `NEO4J_USER`      | The username for your Neo4j database.      | No       |
+| `NEO4J_PASSWORD`  | The password for your Neo4j database.      | No       |
+
+Here is an example `.env` file:
 
 ```env
 LETTRIA_API_KEY="YOUR_LETTRIA_API_KEY"
@@ -48,8 +57,6 @@ NEO4J_URI="bolt://localhost:7687"
 NEO4J_USER="neo4j"
 NEO4J_PASSWORD="password"
 ```
-
-The `T2GClient` will automatically load these variables.
 
 ### Example: Build a Graph
 
