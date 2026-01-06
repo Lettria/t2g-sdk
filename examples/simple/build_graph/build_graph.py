@@ -1,3 +1,8 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import asyncio
 import logging
 from t2g_sdk.client import T2GClient
@@ -12,7 +17,8 @@ async def main():
                 file_path="assets/pizza.txt",
                 ontology_path="assets/pizza.ttl",
                 output_path="./output/graph",
-                save_to_neo4j=True,
+                save_to_neo4j=False,
+                refresh_graph=False,
             )
             print("Job completed successfully:", job)
         except Exception as e:

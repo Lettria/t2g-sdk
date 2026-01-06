@@ -2,6 +2,6 @@
 dist/
 *.cql
 *.output.ttl
-examples/save_neo4j
-examples/upload_ontology
-examples/upload_file
+examples/advanced/graph-enhanced-search
+__pycache__/
+poetry.lock

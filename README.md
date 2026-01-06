@@ -3,22 +3,15 @@
 [![PyPI version](https://badge.fury.io/py/t2g-sdk.svg)](https://badge.fury.io/py/t2g-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Welcome to the official Python SDK for Lettria's Text-to-Graph (T2G) API! This SDK provides a convenient way to interact with the T2G API, allowing you to unlock the power of knowledge graphs from your text data directly within your Python applications.
+Welcome to the official Python SDK for Lettria's Text-to-Graph (T2G) API! This SDK makes it easy to turn unstructured text into powerful knowledge graphs right from your Python applications. ✨
 
-## 🌟 Overview
+## 🌟 Features
 
-Lettria's Text-to-Graph (T2G) technology transforms unstructured text into structured knowledge graphs. This SDK is designed to simplify the process of sending your data to the T2G API and retrieving the results, whether you are indexing a single document, a collection of files, or building complex graph system.
-
-This SDK is built with developers in mind, providing a clean, asynchronous client to handle API requests efficiently.
-
-## ✨ Features
-
-- **Asynchronous Client**: Built with `asyncio` and `aiohttp` for high-performance, non-blocking API calls.
-- **Simple Interface**: Easy-to-use methods for indexing files and managing jobs.
-- **Data Validation**: Leverages `pydantic` for robust and reliable data modeling.
+- **Asynchronous Client**: High-performance, non-blocking API calls using `asyncio` and `aiohttp`.
+- **Simple Interface**: Easy-to-use methods for file operations, ontology management, and graph building.
+- **Data Validation**: Robust data modeling with `pydantic`.
 - **Neo4j Integration**: Directly save your graph data to a Neo4j instance.
-- **Flexible Configuration**: Configure the SDK via environment variables or directly in your code.
-- **Built-in Error Handling**: Gracefully handles API errors with custom exceptions.
+- **Flexible Configuration**: Configure via environment variables or directly in code.
 
 ## 📦 Installation
 
@@ -26,32 +19,32 @@ This SDK is built with developers in mind, providing a clean, asynchronous clien
 pip install t2g-sdk==1.0.0-rc.13
 ```
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-To start using the SDK, you will need an API key from Lettria.
-
-To create an API key, please visit our preview instance [here](https://app.t2g-staging.lettria.net/).
-
-Access to the API is managed by whitelisting. If you require access, please contact us at [hello@lettria.com](mailto:hello@lettria.com) to request whitelisting.
+To use the SDK, you need an API key from Lettria. Get in touch with us at [hello@lettria.com](mailto:hello@lettria.com) to get started.
 
 ### Configuration
 
-The SDK can be configured by setting the following environment variable:
+Create a `.env` file and add your credentials:
 
-- `LETTRIA_API_KEY`: Your Lettria API key.
+```env
+LETTRIA_API_KEY="YOUR_LETTRIA_API_KEY"
 
-Alternatively, you can pass this value directly to the `T2GClient` constructor.
+# Optional Neo4j credentials
+NEO4J_URI="bolt://localhost:7687"
+NEO4J_USER="neo4j"
+NEO4J_PASSWORD="password"
+```
 
-### Quick Example: Building a graph
+The `T2GClient` will automatically load these variables.
 
-This example demonstrates how to build a graph from a local text file and save the resulting graph to Neo4j.
+### Example: Build a Graph
+
+This example shows how to build a graph from a text file and an ontology.
 
 ```python
 import asyncio
-from t2g_sdk.client import T2GClient
-from t2g_sdk.exceptions import T2GException
-from t2g_sdk.models import Job
-
+from t2g_sdk import T2GClient
 
 async def main():
     async with T2GClient() as client:
@@ -59,64 +52,39 @@ async def main():
             await client.build_graph(
                 file_path="path/to/your/document.txt",
                 ontology_path="path/to/your/ontology.ttl",
-                output_path="path/to/your/output",
-                save_to_neo4j=True,
+                output_path="./output/graph.ttl",
+                save_to_neo4j=True, # Optional
             )
-            print("🎉 Graph builded successfully")
+            print("🎉 Graph built successfully!")
         except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-
+            print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     asyncio.run(main())
-
 ```
-
-## 📚 API Reference
-
-The main entry point of the SDK is the `T2GClient` class.
-
-### `t2g_sdk.client.T2GClient`
-
-The asynchronous client for interacting with the T2G API.
-
-**Methods:**
-
-- `async def build_graph(file_path: str, ontology_path: str = None, output_path: str = None, save_to_neo4j: bool = False) -> Job`:
-  Build a knowledge graph from a file by uploading it, running a job, and downloading the output.
-  - `file_path`: Path to the file to process.
-  - `ontology_path` (optional): Path to an ontology file (e.g., `.ttl`).
-  - `output_path` (optional): The path to save the output to. If not provided, a default path will be used.
-  - `save_to_neo4j` (optional): If `True`, saves the result to your configured Neo4j instance.
-
-## ⚙️ Configuration Details
-
-The SDK uses `pydantic-settings` for configuration management. You can configure the client by passing arguments to its constructor, or by setting environment variables.
-
-| Argument         | Environment Variable | Description                                      |
-| ---------------- | -------------------- | ------------------------------------------------ |
-| `api_key`        | `LETTRIA_API_KEY`    | **Required.** Your Lettria API key.              |
-| `neo4j_uri`      | `NEO4J_URI`          | (Optional) The URI for your Neo4j instance.      |
-| `neo4j_user`     | `NEO4J_USER`         | (Optional) The username for your Neo4j instance. |
-| `neo4j_password` | `NEO4J_PASSWORD`     | (Optional) The password for your Neo4j instance. |
-
-**Note:** The Neo4j configuration options (`neo4j_uri`, `neo4j_user`, `neo4j_password`) are only required if you set `save_to_neo4j=True` when calling `build_graph`.
 
 ## 📂 Examples
 
-You can find more examples in the [`examples/`](./examples/) directory. Each example includes a `README.md` with instructions on how to run it.
+For more detailed examples, check out the [`examples/`](./examples/) directory. Each example has its own README with instructions.
 
-- [`build_graph/`](./examples/build_graph/README.md): A simple demonstration of how to build a knowledge graph from a file.
-- [`simple-reporting/`](./examples/simple-reporting/README.md): An advanced example of how to generate a report from the produced knowledge graph data.
-- [`upload_ontology/`](./examples/upload_ontology/README.md): A basic example of how to upload an ontology file.
+### Simple Examples
+
+- **[Build Graph](./examples/simple/build_graph/)**: Build a knowledge graph from a text file.
+- **[File Operations](./examples/simple/file_operations/)**: Upload and manage files.
+- **[Ontology Operations](./examples/simple/ontology_operations/)**: Upload and manage ontologies.
+- **[Delete Operations](./examples/simple/delete_operations/)**: Delete files and ontologies.
+
+### Advanced Example
+
+- **[Simple Reporting](./examples/advanced/simple-reporting/)**: A complete workflow to index a PDF, build a graph, and generate a report.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue if you have any feedback or suggestions.
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## 📧 Contact
 
-For any feedback, questions, or support, please reach out to us at [hello@lettria.com](mailto:hello@lettria.com).
+For support or questions, please reach out at [hello@lettria.com](mailto:hello@lettria.com).
 
 ## 📄 License
 

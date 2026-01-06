@@ -14,7 +14,7 @@ async def main():
     genai_client = genai.Client()
 
     prompt = """Convert this document in markdown."""
-    print("Parsing document to markdown...")
+    print("Converting pdf document to markdown...")
     parsed = genai_client.models.generate_content(
         model="gemini-3-flash-preview",
         contents=[
@@ -31,9 +31,9 @@ async def main():
     if parsed.text:
         with open(f"{file_name.rsplit('.', 1)[0]}.md", "w") as f:
             f.write(parsed.text)
-        print(f"Parsed document saved to {file_name.rsplit('.', 1)[0]}.md")
+        print(f"Converted document saved to {file_name.rsplit('.', 1)[0]}.md")
     else:
-        print("Failed to parse the document.")
+        print("Failed to convert the document.")
 
 
 if __name__ == "__main__":

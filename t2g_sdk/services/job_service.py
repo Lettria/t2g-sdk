@@ -1,13 +1,8 @@
-import asyncio
 import os
 from time import time
 from typing import Any, Dict, List, Optional, cast
 import aiohttp
 import logging
-import asyncio
-import itertools
-import sys
-from time import time
 
 from .base_service import BaseService
 from ..models import Job, JobStatus
@@ -18,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class JobService(BaseService):
-    async def submit_job(self, file_id: str, ontology_id: str | None = None) -> Job:
+    async def submit_job(self, file_id: str, ontology_id: Optional[str] = None) -> Job:
         """
         Asynchronously submits a job for processing.
         """
@@ -36,6 +31,39 @@ class JobService(BaseService):
         """
         response = await self._request("POST", "/api/v0/job/find", json={"ids": ids})
         return [Job(id=job["id"], status=job["status"]) for job in response["jobs"]]
+
+    async def find_job(self, id: str) -> Optional[Job]:
+        """
+        Asynchronously finds a job by its ID.
+        """
+        jobs = await self.find_jobs(ids=[id])
+        if not jobs:
+            return None
+        return jobs[0]
+
+    async def find_latest_job(
+        self, file_id: str, ontology_id: Optional[str] = None
+    ) -> Optional[Job]:
+        """
+        Asynchronously finds the latest job by its file_id.
+        """
+        payload: Dict[str, Any] = {"fileId": file_id, "status": JobStatus.SUCCEEDED}
+        if ontology_id:
+            payload["ontologyId"] = ontology_id
+        response = await self._request(
+            "POST",
+            "/api/v0/job/find",
+            params={
+                "limit": 1,
+                "orderBy": "createdAt",
+                "orderDirection": "DESC",
+            },
+            json=payload,
+        )
+        if not response["jobs"]:
+            return None
+        job_data = response["jobs"][0]
+        return Job(id=job_data["id"], status=job_data["status"])
 
     async def download_job_output(
         self, job_id: str, output_path: Optional[str] = None
@@ -99,42 +127,25 @@ class JobService(BaseService):
     async def run_job(
         self,
         file_id: str,
-        ontology_id: str | None = None,
+        ontology_id: Optional[str] = None,
         polling_interval: int = 5,
         timeout: int = 3600,
     ) -> Job:
         """
         Asynchronously submits a job and polls for its completion with a terminal spinner.
         """
-
-        async def spinner():
-            for c in itertools.cycle("|/-\\"):
-                sys.stdout.write(f"\rWaiting for job {job.id}... {c}")
-                sys.stdout.flush()
-                await asyncio.sleep(0.1)
-
-        start_time = time()
         job = await self.submit_job(file_id, ontology_id)
         logger.debug(f"Job {job.id} submitted, status: {job.status}")
 
-        spin_task = asyncio.create_task(spinner())
-
-        try:
-            while (
-                job.status not in [JobStatus.FAILED, JobStatus.SUCCEEDED]
-                and not job.stopped
-            ):
-                if time() - start_time > timeout:
-                    raise T2GException(f"Timeout reached for job {job.id}")
-                await asyncio.sleep(polling_interval)
-                jobs = await self.find_jobs([job.id])
-                if not jobs:
-                    raise T2GException(f"Could not find job {job.id}")
-                job = jobs[0]
-                logger.debug(f"Job {job.id} status: {job.status}")
-        finally:
-            spin_task.cancel()
-            sys.stdout.write("\r" + " " * 50 + "\r")  # Clear spinner line
+        job = await self._wait_with_spinner(
+            wait_message=f"Waiting for job {job.id}...",
+            polling_fct=self.find_job,
+            polling_fct_args=[job.id],
+            status_attribute="status",
+            end_statuses=[JobStatus.SUCCEEDED, JobStatus.FAILED],
+            polling_interval=polling_interval,
+            timeout=timeout,
+        )
 
         if job.status == JobStatus.FAILED:
             raise T2GException(f"Job {job.id} failed.")

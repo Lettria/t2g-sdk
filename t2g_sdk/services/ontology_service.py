@@ -1,9 +1,10 @@
 import logging
 import os
 import hashlib
-from typing import Dict, List
+from typing import Dict, List, Optional
 from datetime import datetime
 import aiohttp
+
 
 from .base_service import BaseService
 from ..models import Ontology, OntologyStatus
@@ -38,7 +39,7 @@ class OntologyService(BaseService):
         return {"ontology": ontology, "upload_url": upload_url}
 
     async def find_ontologies(
-        self, ids: list[str] | None = None, source_hashes: list[str] | None = None
+        self, ids: Optional[list[str]] = None, source_hashes: Optional[list[str]] = None
     ) -> list[Ontology]:
         """
         Asynchronously finds one or more ontologies by their IDs.
@@ -63,6 +64,26 @@ class OntologyService(BaseService):
             )
             ontologies.append(ontology)
         return ontologies
+
+    async def find_ontology(self, id: str) -> Optional[Ontology]:
+        """
+        Asynchronously finds an ontology by its ID.
+        """
+        ontologies = await self.find_ontologies(ids=[id])
+        if not ontologies:
+            return None
+        return ontologies[0]
+
+    async def delete_ontology(self, ontology_id: str) -> None:
+        """
+        Asynchronously deletes an ontology by its ID.
+        """
+        logger.info(f"Deleting ontology with id: {ontology_id}")
+        await self._request(
+            "DELETE",
+            f"/api/v0/ontology/{ontology_id}",
+        )
+        logger.info(f"Successfully deleted ontology with id: {ontology_id}")
 
     async def upload_ontology(self, ontology_path: str) -> Ontology:
         """
@@ -92,9 +113,7 @@ class OntologyService(BaseService):
 
         try:
             async with aiohttp.ClientSession() as s3_session:
-                async with s3_session.put(
-                    upload_url, data=ontology_content
-                ) as resp:
+                async with s3_session.put(upload_url, data=ontology_content) as resp:
                     resp.raise_for_status()
         except FileNotFoundError:
             raise T2GException(f"Local ontology not found at: {ontology_path}")
@@ -108,3 +127,25 @@ class OntologyService(BaseService):
                 f"An unexpected error occurred during ontology upload: {e}"
             ) from e
         return ontology_obj
+
+    async def wait_for_ontology_upload(
+        self,
+        ontology_id: str,
+        polling_interval: float = 0.5,
+        timeout: int = 3600,
+    ) -> Ontology:
+        """
+        Asynchronously waits for an ontology to be uploaded and processed.
+        """
+        ontology = await self._wait_with_spinner(
+            wait_message=f"Waiting for ontology upload {ontology_id}...",
+            polling_fct=self.find_ontology,
+            polling_fct_args=[ontology_id],
+            status_attribute="status",
+            end_statuses=[OntologyStatus.UPLOADED, OntologyStatus.FAILED],
+            polling_interval=polling_interval,
+            timeout=timeout,
+        )
+        if ontology.status == OntologyStatus.FAILED:
+            raise T2GException(f"Ontology {ontology.id} failed to upload.")
+        return ontology

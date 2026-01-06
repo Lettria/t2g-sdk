@@ -1,9 +1,11 @@
 import logging
 import hashlib
-from typing import Dict, List
+from typing import Dict, List, Optional
 from datetime import datetime
 import aiohttp
 import os
+import os
+
 
 from .base_service import BaseService
 from ..models import File, FileStatus
@@ -37,7 +39,9 @@ class FileService(BaseService):
         return {"file": file, "upload_url": upload_url}
 
     async def find_files(
-        self, ids: list[str] | None = None, source_hashes: list[str] | None = None
+        self,
+        ids: Optional[List[str]] = None,
+        source_hashes: Optional[List[str]] = None,
     ) -> list[File]:
         """
         Asynchronously finds one or more files by their IDs.
@@ -62,6 +66,26 @@ class FileService(BaseService):
             )
             files.append(file)
         return files
+
+    async def find_file(self, id: str) -> Optional[File]:
+        """
+        Asynchronously finds a file by its ID.
+        """
+        files = await self.find_files(ids=[id])
+        if not files:
+            return None
+        return files[0]
+
+    async def delete_file(self, file_id: str) -> None:
+        """
+        Asynchronously deletes a file by its ID.
+        """
+        logger.info(f"Deleting file with id: {file_id}")
+        await self._request(
+            "DELETE",
+            f"/api/v0/file/{file_id}",
+        )
+        logger.info(f"Successfully deleted file with id: {file_id}")
 
     async def upload_file(self, file_path: str) -> File:
         """
@@ -105,3 +129,25 @@ class FileService(BaseService):
                 f"An unexpected error occurred during file upload: {e}"
             ) from e
         return file_obj
+
+    async def wait_for_file_upload(
+        self,
+        file_id: str,
+        polling_interval: float = 0.5,
+        timeout: int = 3600,
+    ) -> File:
+        """
+        Asynchronously waits for a file to be uploaded and processed.
+        """
+        file = await self._wait_with_spinner(
+            wait_message=f"Waiting for file upload {file_id}...",
+            polling_fct=self.find_file,
+            polling_fct_args=[file_id],
+            status_attribute="status",
+            end_statuses=[FileStatus.UPLOADED, FileStatus.FAILED],
+            polling_interval=polling_interval,
+            timeout=timeout,
+        )
+        if file.status == FileStatus.FAILED:
+            raise T2GException(f"File {file.id} failed to upload.")
+        return file

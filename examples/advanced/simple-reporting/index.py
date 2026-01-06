@@ -6,19 +6,23 @@ import asyncio
 import logging
 import sys
 from t2g_sdk.client import T2GClient
-from t2g_sdk.exceptions import T2GException
 from t2g_sdk.models import Job
 from simple_graph_retriever.client import GraphRetrievalClient
+from utils import wait_for_embedder, wait_for_neo4j
+
+logging.basicConfig(level=logging.INFO)
 
 
 async def main(file_path: str):
     async with T2GClient() as client:
         try:
+            await wait_for_neo4j()
             job: Job = await client.build_graph(
                 file_path=file_path,
                 output_path="./output/graph",
                 save_to_neo4j=True,
             )
+            await wait_for_embedder()
             GraphRetrievalClient().index()
 
         except Exception as e:

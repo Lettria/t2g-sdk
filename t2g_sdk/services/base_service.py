@@ -1,8 +1,12 @@
-from typing import Any, Optional
+from typing import Any, Optional, Callable, Awaitable, List, Union
 import aiohttp
 from ..exceptions import APIException, ConfigurationException
 import logging
 from t2g_sdk.config import settings
+import asyncio
+import itertools
+import sys
+from time import time
 
 logging.basicConfig(level=settings.loglevel.upper())
 logger = logging.getLogger(__name__)
@@ -63,7 +67,56 @@ class BaseService:
                             else str(error_body)
                         ),
                     )
+                # if response.status == 204:
+                #     return None
                 return await response.json()
         except aiohttp.ClientError as e:
             logger.error("Async request failed: %s", e)
             raise APIException(status_code=500, message=str(e)) from e
+
+    async def _wait_with_spinner(
+        self,
+        wait_message: str,
+        polling_fct: Callable[..., Awaitable[Any]],
+        polling_fct_args: List[Any],
+        status_attribute: str,
+        end_statuses: List[Union[Any, str]],
+        polling_interval: float = 0.5,
+        timeout: int = 3600,
+    ) -> Any:
+        async def spinner():
+            for c in itertools.cycle("|/-\\"):
+                sys.stdout.write(f"\r{wait_message} {c}")
+                sys.stdout.flush()
+                await asyncio.sleep(0.1)
+
+        start_time = time()
+        polled_object = await polling_fct(*polling_fct_args)
+        if not polled_object:
+            raise APIException(500, f"Could not find object with {polling_fct_args}")
+
+        logger.debug(
+            f"Object {polled_object.id} status: {getattr(polled_object, status_attribute)}"
+        )
+
+        spin_task = asyncio.create_task(spinner())
+
+        try:
+            while getattr(polled_object, status_attribute) not in end_statuses:
+                if time() - start_time > timeout:
+                    raise APIException(
+                        500, f"Timeout reached for object {polled_object.id}"
+                    )
+                await asyncio.sleep(polling_interval)
+                polled_object = await polling_fct(*polling_fct_args)
+                if not polled_object:
+                    raise APIException(
+                        500, f"Could not find object with {polling_fct_args}"
+                    )
+                logger.debug(
+                    f"Object {polled_object.id} status: {getattr(polled_object, status_attribute)}"
+                )
+        finally:
+            spin_task.cancel()
+            sys.stdout.write("\r\033[K")
+        return polled_object

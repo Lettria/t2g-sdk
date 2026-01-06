@@ -7,9 +7,12 @@ from simple_graph_retriever.client import GraphRetrievalClient
 from simple_graph_retriever.models import RetrievalConfig
 from google import genai
 from google.genai import types as genai_types
+from utils import wait_for_embedder, wait_for_neo4j
 
 
 async def main(script_input: str):
+    await wait_for_neo4j()
+    await wait_for_embedder()
     genai_client = genai.Client()
     retrieval_client = GraphRetrievalClient()
     data = retrieval_client.retrieve_graph(
@@ -48,11 +51,13 @@ async def main(script_input: str):
         ),
     )
     if report.text:
-        with open(f"./output/report_{script_input.replace(' ', '_')}.md", "w") as f:
+        with open(
+            f"./output/report_{script_input.lower().replace(' ', '_')}.md", "w"
+        ) as f:
             f.write(f"# Report on {script_input}\n\n")
             f.write(report.text)
 
 
 if __name__ == "__main__":
-    script_input = sys.argv[1] if len(sys.argv) > 1 else "battles"
+    script_input = sys.argv[1] if len(sys.argv) > 1 else "Money KPIs"
     asyncio.run(main(script_input))

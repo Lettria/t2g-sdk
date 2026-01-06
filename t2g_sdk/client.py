@@ -3,14 +3,14 @@ import aiohttp
 import certifi
 import ssl
 from pydantic import ValidationError
-from t2g_sdk.services.neo4j_service import Neo4jService
+from .services.neo4j_service import Neo4jService
 from .config import Settings
-from .models import Job
+from .models import File, Job, OntologyStatus, FileStatus
 from .exceptions import ConfigurationException
 from .services.file_service import FileService
 from .services.job_service import JobService
 from .services.ontology_service import OntologyService
-from t2g_sdk.config import settings
+from .config import settings
 
 
 class T2GClient:
@@ -100,9 +100,10 @@ class T2GClient:
         ontology_path: Optional[str] = None,
         output_path: Optional[str] = None,
         save_to_neo4j: bool = False,
+        refresh_graph: bool = False,
     ) -> Job:
         return await self.build_graph(
-            file_path, ontology_path, output_path, save_to_neo4j
+            file_path, ontology_path, output_path, save_to_neo4j, refresh_graph
         )
 
     async def build_graph(
@@ -111,31 +112,42 @@ class T2GClient:
         ontology_path: Optional[str] = None,
         output_path: Optional[str] = None,
         save_to_neo4j: bool = False,
+        refresh_graph: bool = False,
     ) -> Job:
         """
         Processes a file by uploading it, optionally with an ontology, running a
         job, and downloading the output.
-
         Args:
             file_path: The path to the file to process.
             ontology_path: The path to the ontology file to use.
             output_path: The path to save the output to. If not provided, a default
                          path will be used.
             save_to_neo4j: Whether to save the output to Neo4j.
-
+            refresh_graph: Whether to force a new job to be created (refresh the graph).
         Returns:
             The completed job.
         """
         created_file = await self.file.upload_file(file_path)
 
+        if created_file.status == FileStatus.PENDING:
+            await self.file.wait_for_file_upload(created_file.id)
+
         created_ontology_id = None
         if ontology_path:
             created_ontology = await self.ontology.upload_ontology(ontology_path)
+            if created_ontology.status == OntologyStatus.PENDING:
+                await self.ontology.wait_for_ontology_upload(created_ontology.id)
             created_ontology_id = created_ontology.id
 
-        completed_job = await self.job.run_job(
-            file_id=created_file.id, ontology_id=created_ontology_id
-        )
+        completed_job = None
+        if not refresh_graph:
+            completed_job = await self.job.find_latest_job(
+                file_id=created_file.id, ontology_id=created_ontology_id
+            )
+        if not completed_job:
+            completed_job = await self.job.run_job(
+                file_id=created_file.id, ontology_id=created_ontology_id
+            )
 
         if not output_path:
             output_path = f"./job_{completed_job.id}.output"
