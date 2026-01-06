@@ -40,7 +40,7 @@ The `T2GClient` will automatically load these variables.
 
 ### Example: Build a Graph
 
-This example shows how to build a graph from a text file and an ontology.
+This example shows how to build a graph from a text file.
 
 ```python
 import asyncio
@@ -51,9 +51,6 @@ async def main():
         try:
             await client.build_graph(
                 file_path="path/to/your/document.txt",
-                ontology_path="path/to/your/ontology.ttl",
-                output_path="./output/graph.ttl",
-                save_to_neo4j=True, # Optional
             )
             print("🎉 Graph built successfully!")
         except Exception as e:
@@ -62,6 +59,30 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
+## 📚 API Reference
+
+### `client.build_graph`
+
+```python
+async def build_graph(
+    file_path: str,
+    ontology_path: Optional[str] = None,
+    output_path: Optional[str] = None,
+    save_to_neo4j: bool = False,
+    refresh_graph: bool = False,
+) -> Job:
+```
+
+Processes a file by uploading it, optionally with an ontology, running a job, and downloading the output.
+
+| Parameter     | Type          | Description                                                                 | Default   |
+|---------------|---------------|-----------------------------------------------------------------------------|-----------|
+| `file_path`   | `str`         | The path to the file to process.                                            |           |
+| `ontology_path` | `Optional[str]` | The path to the ontology file to use.                                       | `None`    |
+| `output_path` | `Optional[str]` | The path to save the output to. If not provided, a default path will be used. | `None`    |
+| `save_to_neo4j` | `bool`        | Whether to save the output to Neo4j.                                        | `False`   |
+| `refresh_graph` | `bool`        | Whether to force a new job to be created (refresh the graph).               | `False`   |
 
 ## 📂 Examples
 
