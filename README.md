@@ -16,7 +16,7 @@ Welcome to the official Python SDK for Lettria's Text-to-Graph (T2G) API! This S
 ## 📦 Installation
 
 ```bash
-pip install t2g-sdk==1.0.0-rc.13
+pip install t2g-sdk==1.0.0-rc.14
 ```
 
 ## 🚀 Quick Start
