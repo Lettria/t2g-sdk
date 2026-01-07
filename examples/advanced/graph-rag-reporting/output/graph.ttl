@@ -1,0 +1,163 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.org/loreal/> .
+@prefix data: <http://example.org/data/> .
+@prefix schema: <https://schema.org/> .
+data:17c1b3a6-b776-48df-b465-bb67439d22cf rdfs:label "Paul Bulcke" .
+data:207a6b4a-d86b-49b7-bef2-cc0e387716cf rdfs:label "Kérastase" .
+data:914661d5-bd03-4438-9675-6f9b8491d005 rdfs:label "Amouage" .
+data:2ee4057d-60ed-4570-929e-c836be41c879 ex:growthRate "5,3 %" .
+data:6ff2eab7-09db-4293-89d4-a599f77579ed rdfs:label "Suzhou" .
+data:58efdc9a-b34f-419a-9bff-3483d73c7c7e ex:revenueShare "8 %" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:employeeCount "90 000"^^xsd:integer ;
+	ex:acquired data:914661d5-bd03-4438-9675-6f9b8491d005 .
+data:d24cdaa6-c0bc-4221-890f-a00f6bf37038 rdfs:label "Skin Technology by L’Oréal" .
+data:e99c5bb5-a226-41b6-b281-f63f84b98193 rdfs:label "Amérique du Nord" .
+data:fd0e81fa-0f6b-4d1b-9e35-873d2d40c72b rdfs:label "Patrice Caine" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:18ea1ae6-a16f-4eb0-8192-4feb30cfca21 .
+data:c76fd443-07db-4c69-a00c-4e7c8ff1e363 ex:developed data:87e95e33-82ee-4b39-850a-40784d5b7ed3 .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:hasLab data:11083e38-f06e-439a-ab1e-1cea6c4cb22d .
+data:848bdcd7-eefe-40d1-bd10-7bc5542fbef4 ex:revenueShare "33 %" .
+data:4f4913ad-1981-4b9b-8e58-3e0a5ce3e926 ex:revenueShare "9 %" .
+data:e99c5bb5-a226-41b6-b281-f63f84b98193 ex:revenueShare "27 %" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:63297834-077c-404b-8137-1c5b13a2f7f2 .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:brandCount 37 .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:ec775de8-9d48-4812-99d5-c052e49d0123 .
+data:1474c874-da13-40af-aa38-a6cb646a3099 rdfs:label "Alexandre Ricard" .
+data:848bdcd7-eefe-40d1-bd10-7bc5542fbef4 rdfs:label "Europe" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:fd0e81fa-0f6b-4d1b-9e35-873d2d40c72b .
+data:2ee4057d-60ed-4570-929e-c836be41c879 ex:launched data:bcc57188-9f07-4839-9c1f-77469a802bdf .
+data:4217e1d1-97e9-46ae-832c-6d539d7177a6 rdfs:label "Miu Miu" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:averageAge "58,5 ans" .
+data:ed1f84b9-8ff3-4f2c-9a00-aed79c9ee635 ex:hasBrand data:aeb4622d-e5a3-45f3-87af-a29fb3c75de4 .
+data:290278e5-9ceb-4bfa-80ab-2aad975f7c8f rdfs:label "Jean-Paul Agon" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:acquired data:4217e1d1-97e9-46ae-832c-6d539d7177a6 ;
+	ex:hasFacility data:6ff2eab7-09db-4293-89d4-a599f77579ed .
+data:7b9347dd-b55a-41ed-8a98-1a2d4f42a6d9 rdfs:label "Fonds L’Oréal pour les Femmes" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 rdfs:label "Conseil d’Administration" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:renewableEnergyRate "97 %" ;
+	ex:operatingMargin "20 %" ;
+	ex:acquired data:fd7cc57a-29b5-4c22-9c66-894820ffcdcb .
+data:bcc57188-9f07-4839-9c1f-77469a802bdf rdfs:label "AirLight Pro" .
+data:736de936-fac9-43e4-8278-8e4d0975e0eb rdfs:label "Françoise Bettencourt Meyers" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:hasDivision data:b8d611dd-3f53-4171-a072-9679174be042 , data:ed1f84b9-8ff3-4f2c-9a00-aed79c9ee635 .
+data:290278e5-9ceb-4bfa-80ab-2aad975f7c8f ex:memberOf data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:patentsFiled 694 .
+data:ec775de8-9d48-4812-99d5-c052e49d0123 rdfs:label "Jacques Ripoll" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:cdpScore "AAA" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:dc3bc097-7b5a-4f72-b4ff-9437a16e5973 .
+data:c76fd443-07db-4c69-a00c-4e7c8ff1e363 ex:hasBrand data:46f30365-46c1-459f-88e3-9825fe2c9ba7 .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:5f39c548-7cf7-43b3-b646-6fe08385185f .
+data:fd7cc57a-29b5-4c22-9c66-894820ffcdcb rdfs:label "Dr.G" .
+data:87e95e33-82ee-4b39-850a-40784d5b7ed3 rdfs:label "Melasyl™" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:genderDiversity "43 %" .
+data:33014dd8-0d2c-44e8-9e99-1499b6e181f1 rdfs:label "Nicolas Hieronimus" .
+data:5448a44e-01ce-4283-9724-3c55afaf1f73 rdfs:label "Beauty Genius" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:waterRecyclingRate "53 %" .
+data:63297834-077c-404b-8137-1c5b13a2f7f2 rdfs:label "Sophie Bellon" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:ecommerceRevenue "12,3 Mds €" ;
+	ex:established data:7b9347dd-b55a-41ed-8a98-1a2d4f42a6d9 ;
+	ex:hasDivision data:2ee4057d-60ed-4570-929e-c836be41c879 ;
+	rdfs:label "L'Oréal" .
+data:fc9e86db-ec5e-4c74-a795-37e7d501465f ex:revenueShare "24 %" .
+data:18ea1ae6-a16f-4eb0-8192-4feb30cfca21 rdfs:label "Thierry Hamel" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:589b4146-fda3-4213-bbc6-3d103c15c232 .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:netProfitPerShare "12,66 €" .
+data:dc3bc097-7b5a-4f72-b4ff-9437a16e5973 rdfs:label "Nicolas Meyers" .
+data:2ee4057d-60ed-4570-929e-c836be41c879 ex:hasBrand data:207a6b4a-d86b-49b7-bef2-cc0e387716cf .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:operatesIn data:4f4913ad-1981-4b9b-8e58-3e0a5ce3e926 , data:e99c5bb5-a226-41b6-b281-f63f84b98193 .
+data:fab1b52f-106a-4a4e-9e74-ae086f2caebf rdfs:label "Béatrice Guillaume-Grabisch" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:17c1b3a6-b776-48df-b465-bb67439d22cf .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:operatesIn data:58efdc9a-b34f-419a-9bff-3483d73c7c7e ;
+	ex:comparableGrowth "5,1 %" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:599c822e-5399-4aab-8fe3-4ac333b0b577 .
+data:489e5a14-1b6a-4dfb-b63c-38284bf75e87 rdfs:label "Lancôme" .
+data:ed1f84b9-8ff3-4f2c-9a00-aed79c9ee635 ex:uses data:5448a44e-01ce-4283-9724-3c55afaf1f73 .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:dividend "7,00 €" ;
+	ex:revenue "43,48 milliards d’euros" ;
+	ex:operatesIn data:fc9e86db-ec5e-4c74-a795-37e7d501465f .
+data:a52dbfcd-470b-4e0e-b346-8e6efb90146c rdfs:label "Comité Exécutif" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:hasPlatform data:d24cdaa6-c0bc-4221-890f-a00f6bf37038 .
+data:33014dd8-0d2c-44e8-9e99-1499b6e181f1 ex:memberOf data:a52dbfcd-470b-4e0e-b346-8e6efb90146c .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:independenceRate "50 %" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:acquired data:bd79d98f-d75a-4cd4-9795-9a649300c44c .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:1474c874-da13-40af-aa38-a6cb646a3099 .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:operatesIn data:848bdcd7-eefe-40d1-bd10-7bc5542fbef4 .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:fab1b52f-106a-4a4e-9e74-ae086f2caebf , data:329e7e9e-c3a0-48e7-bb19-c25aee97d1e1 .
+data:33014dd8-0d2c-44e8-9e99-1499b6e181f1 ex:memberOf data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:736de936-fac9-43e4-8278-8e4d0975e0eb .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:jobApplicationsReceived "1,3 million" ;
+	ex:operatingProfit "8,69 milliards d’euros" .
+data:1536135e-2ef3-4262-b5d4-763706269c4f rdfs:label "Virginie Morgon" .
+data:329e7e9e-c3a0-48e7-bb19-c25aee97d1e1 rdfs:label "Jean-Victor Meyers" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:employeeEngagementRate "79 %" .
+data:46f30365-46c1-459f-88e3-9825fe2c9ba7 rdfs:label "La Roche-Posay" .
+data:b8d611dd-3f53-4171-a072-9679174be042 ex:hasBrand data:489e5a14-1b6a-4dfb-b63c-38284bf75e87 .
+data:58efdc9a-b34f-419a-9bff-3483d73c7c7e rdfs:label "Amérique latine" .
+data:11083e38-f06e-439a-ab1e-1cea6c4cb22d rdfs:label "CreAItech" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:hasDivision data:c76fd443-07db-4c69-a00c-4e7c8ff1e363 .
+data:c76fd443-07db-4c69-a00c-4e7c8ff1e363 rdfs:label "Beauté Dermatologique" .
+data:2ee4057d-60ed-4570-929e-c836be41c879 rdfs:label "Produits Professionnels" .
+data:599c822e-5399-4aab-8fe3-4ac333b0b577 rdfs:label "Ilham Kadri" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:sustainablePackagingRate "49 %" .
+data:bd79d98f-d75a-4cd4-9795-9a649300c44c rdfs:label "Jacquemus" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:nationalityCount 4 .
+data:7b9347dd-b55a-41ed-8a98-1a2d4f42a6d9 ex:fundAllocation "70 M€" .
+data:b8d611dd-3f53-4171-a072-9679174be042 ex:growthRate "2,7 %" .
+data:fc9e86db-ec5e-4c74-a795-37e7d501465f rdfs:label "Asie du Nord" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:acquired data:10248584-32b4-448b-abef-7a01c514c8c8 .
+data:c76fd443-07db-4c69-a00c-4e7c8ff1e363 ex:growthRate "9,8 %" .
+data:ed1f84b9-8ff3-4f2c-9a00-aed79c9ee635 ex:growthRate "5,4 %" .
+data:589b4146-fda3-4213-bbc6-3d103c15c232 rdfs:label "Fabienne Dulac" .
+data:10248584-32b4-448b-abef-7a01c514c8c8 rdfs:label "Galderma" .
+data:ed1f84b9-8ff3-4f2c-9a00-aed79c9ee635 rdfs:label "Produits Grand Public" .
+data:aeb4622d-e5a3-45f3-87af-a29fb3c75de4 rdfs:label "L'Oréal Paris" .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 ex:fiscalYear "2024"^^xsd:gYear .
+data:4f4913ad-1981-4b9b-8e58-3e0a5ce3e926 rdfs:label "SAPMENA-SSA" .
+data:5f39c548-7cf7-43b3-b646-6fe08385185f rdfs:label "Benny de Vlieger" .
+data:b8d611dd-3f53-4171-a072-9679174be042 rdfs:label "Luxe" .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 ex:hasMember data:1536135e-2ef3-4262-b5d4-763706269c4f .
+data:bcc57188-9f07-4839-9c1f-77469a802bdf a ex:Product .
+data:d24cdaa6-c0bc-4221-890f-a00f6bf37038 a ex:Platform .
+data:bd79d98f-d75a-4cd4-9795-9a649300c44c a ex:Brand .
+data:489e5a14-1b6a-4dfb-b63c-38284bf75e87 a ex:Brand .
+data:fd0e81fa-0f6b-4d1b-9e35-873d2d40c72b a ex:Person .
+data:58efdc9a-b34f-419a-9bff-3483d73c7c7e a ex:Region .
+data:33014dd8-0d2c-44e8-9e99-1499b6e181f1 a ex:Person .
+data:dc3bc097-7b5a-4f72-b4ff-9437a16e5973 a ex:Person .
+data:329e7e9e-c3a0-48e7-bb19-c25aee97d1e1 a ex:Person .
+data:ed1f84b9-8ff3-4f2c-9a00-aed79c9ee635 a ex:Division .
+data:589b4146-fda3-4213-bbc6-3d103c15c232 a ex:Person .
+data:4b95b75d-928f-4c35-8bc8-6dec3662d4c3 a ex:Company .
+data:599c822e-5399-4aab-8fe3-4ac333b0b577 a ex:Person .
+data:1474c874-da13-40af-aa38-a6cb646a3099 a ex:Person .
+data:736de936-fac9-43e4-8278-8e4d0975e0eb a ex:Person .
+data:5448a44e-01ce-4283-9724-3c55afaf1f73 a ex:AI_Tool .
+data:fc9e86db-ec5e-4c74-a795-37e7d501465f a ex:Region .
+data:a52dbfcd-470b-4e0e-b346-8e6efb90146c a ex:Board .
+data:848bdcd7-eefe-40d1-bd10-7bc5542fbef4 a ex:Region .
+data:17c1b3a6-b776-48df-b465-bb67439d22cf a ex:Person .
+data:6ff2eab7-09db-4293-89d4-a599f77579ed a ex:Location .
+data:4f4913ad-1981-4b9b-8e58-3e0a5ce3e926 a ex:Region .
+data:2ee4057d-60ed-4570-929e-c836be41c879 a ex:Division .
+data:10248584-32b4-448b-abef-7a01c514c8c8 a ex:Company .
+data:207a6b4a-d86b-49b7-bef2-cc0e387716cf a ex:Brand .
+data:c9c3a2a3-881d-409f-b98b-37cc0afb21d3 a ex:Board .
+data:ec775de8-9d48-4812-99d5-c052e49d0123 a ex:Person .
+data:87e95e33-82ee-4b39-850a-40784d5b7ed3 a ex:Innovation .
+data:4217e1d1-97e9-46ae-832c-6d539d7177a6 a ex:Brand .
+data:b8d611dd-3f53-4171-a072-9679174be042 a ex:Division .
+data:c76fd443-07db-4c69-a00c-4e7c8ff1e363 a ex:Division .
+data:fd7cc57a-29b5-4c22-9c66-894820ffcdcb a ex:Brand .
+data:18ea1ae6-a16f-4eb0-8192-4feb30cfca21 a ex:Person .
+data:11083e38-f06e-439a-ab1e-1cea6c4cb22d a ex:Lab .
+data:fab1b52f-106a-4a4e-9e74-ae086f2caebf a ex:Person .
+data:63297834-077c-404b-8137-1c5b13a2f7f2 a ex:Person .
+data:5f39c548-7cf7-43b3-b646-6fe08385185f a ex:Person .
+data:46f30365-46c1-459f-88e3-9825fe2c9ba7 a ex:Brand .
+data:914661d5-bd03-4438-9675-6f9b8491d005 a ex:Brand .
+data:1536135e-2ef3-4262-b5d4-763706269c4f a ex:Person .
+data:aeb4622d-e5a3-45f3-87af-a29fb3c75de4 a ex:Brand .
+data:7b9347dd-b55a-41ed-8a98-1a2d4f42a6d9 a ex:Fund .
+data:290278e5-9ceb-4bfa-80ab-2aad975f7c8f a ex:Person .
+data:e99c5bb5-a226-41b6-b281-f63f84b98193 a ex:Region .

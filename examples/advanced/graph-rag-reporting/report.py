@@ -50,12 +50,15 @@ async def main(script_input: str):
             thinking_config=genai_types.ThinkingConfig(thinking_budget=128)
         ),
     )
+    print(" ")
     if report.text:
-        with open(
-            f"./output/report_{script_input.lower().replace(' ', '_')}.md", "w"
-        ) as f:
+        report_path = f"./output/report_{script_input.lower().replace(' ', '_')}.md"
+        with open(report_path, "w") as f:
             f.write(f"# Report on {script_input}\n\n")
             f.write(report.text)
+        print(f"Report generated and saved successfully at {report_path}")
+    else:
+        print("No report generated because the response was empty.")
 
 
 if __name__ == "__main__":

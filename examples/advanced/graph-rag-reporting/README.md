@@ -1,6 +1,6 @@
-# Simple Reporting Example 📊
+# Graph RAG Reporting Example 📊
 
-This guide shows how to build a simple reporting app with the T2G SDK. You'll index a PDF, create a knowledge graph, and generate reports from it.
+This guide demonstrates how to leverage the T2G SDK for building a powerful Graph RAG (Retrieval Augmented Generation) reporting application. You'll learn to convert a PDF document into a Markdown file using an LLM, construct a rich knowledge graph from its content, and then use this graph to generate insightful, context-aware reports.
 
 ## Quick Start 🚀
 
@@ -19,6 +19,8 @@ This guide shows how to build a simple reporting app with the T2G SDK. You'll in
     pip install -r requirements.txt
     docker compose up -d
     ```
+
+> ⏳ The embedder service may take a few minutes to fully boot on first run, as it needs to download the underlying model.
 
 3.  **Run the Workflow**:
 
