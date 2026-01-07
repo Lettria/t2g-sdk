@@ -51,17 +51,6 @@ The SDK can be configured via environment variables. The `T2GClient` will automa
 | `NEO4J_USER`      | The username for your Neo4j database.     | No       |
 | `NEO4J_PASSWORD`  | The password for your Neo4j database.     | No       |
 
-Here is an example `.env` file:
-
-```env
-LETTRIA_API_KEY="YOUR_LETTRIA_API_KEY"
-
-# Optional Neo4j credentials
-NEO4J_URI="bolt://localhost:7687"
-NEO4J_USER="neo4j"
-NEO4J_PASSWORD="password"
-```
-
 ### Example: Build a Graph
 
 This example shows how to build a graph from a text file.
