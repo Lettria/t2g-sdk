@@ -1,6 +1,9 @@
 from dotenv import load_dotenv
 
 load_dotenv()
+import logging
+
+logging.getLogger("google_genai").setLevel(logging.ERROR)
 import asyncio
 import sys
 from simple_graph_retriever.client import GraphRetrievalClient
@@ -26,11 +29,11 @@ async def main(script_input: str):
         return
 
     print(
-        "Founded nodes:",
+        "Nodes found:",
         len(data.nodes),
     )
     print(
-        "Founded relationships:",
+        "Relationships found:",
         len(data.relationships),
     )
     report_prompt = f"""
@@ -50,7 +53,6 @@ async def main(script_input: str):
             thinking_config=genai_types.ThinkingConfig(thinking_budget=128)
         ),
     )
-    print(" ")
     if report.text:
         report_path = f"./output/report_{script_input.lower().replace(' ', '_')}.md"
         with open(report_path, "w") as f:

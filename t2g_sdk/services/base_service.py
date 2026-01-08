@@ -67,8 +67,8 @@ class BaseService:
                             else str(error_body)
                         ),
                     )
-                # if response.status == 204:
-                #     return None
+                if response.status == 204:
+                    return None
                 return await response.json()
         except aiohttp.ClientError as e:
             logger.error("Async request failed: %s", e)

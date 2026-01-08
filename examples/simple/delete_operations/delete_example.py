@@ -8,6 +8,7 @@ import os
 from t2g_sdk.client import T2GClient
 from t2g_sdk.exceptions import APIException
 
+
 async def main():
     # Ensure LETTRIA_API_KEY environment variable is set
     # export LETTRIA_API_KEY="your_api_key_here"
@@ -21,7 +22,7 @@ async def main():
             print(f"Uploading file for deletion: {file_path_to_delete}")
             file_to_delete = await client.file.upload_file(file_path_to_delete)
             print(f"Uploaded File ID: {file_to_delete.id}")
-            
+
             await client.file.delete_file(file_to_delete.id)
 
             # Verify deletion
@@ -42,18 +43,26 @@ async def main():
         # Upload an ontology and then delete it
         try:
             print(f"Uploading ontology for deletion: {ontology_path_to_delete}")
-            ontology_to_delete = await client.ontology.upload_ontology(ontology_path_to_delete)
+            ontology_to_delete = await client.ontology.upload_ontology(
+                ontology_path_to_delete
+            )
             print(f"Uploaded Ontology ID: {ontology_to_delete.id}")
 
             await client.ontology.delete_ontology(ontology_to_delete.id)
 
             # Verify deletion
             print(f"Verifying deletion of ontology ID: {ontology_to_delete.id}")
-            found_ontologies = await client.ontology.find_ontologies(ids=[ontology_to_delete.id])
+            found_ontologies = await client.ontology.find_ontologies(
+                ids=[ontology_to_delete.id]
+            )
             if not found_ontologies:
-                print(f"Ontology {ontology_to_delete.id} successfully deleted and not found.")
+                print(
+                    f"Ontology {ontology_to_delete.id} successfully deleted and not found."
+                )
             else:
-                print(f"Verification failed: Ontology {ontology_to_delete.id} still exists.")
+                print(
+                    f"Verification failed: Ontology {ontology_to_delete.id} still exists."
+                )
 
         except APIException as e:
             print(f"An API error occurred during ontology deletion process: {e}")
