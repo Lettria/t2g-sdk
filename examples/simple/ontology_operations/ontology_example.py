@@ -1,8 +1,3 @@
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
 import asyncio
 import os
 from t2g_sdk.client import T2GClient

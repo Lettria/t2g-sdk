@@ -1,6 +1,10 @@
 import asyncio
 import logging
 import sys
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from google import genai
 from google.genai import types as genai_types
 

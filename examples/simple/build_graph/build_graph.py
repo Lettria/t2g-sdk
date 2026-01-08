@@ -1,8 +1,4 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
 import asyncio
 import logging
 from t2g_sdk.client import T2GClient
