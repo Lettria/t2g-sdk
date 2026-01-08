@@ -110,7 +110,7 @@ For more detailed examples, check out the [`examples/`](./examples/) directory. 
 
 ### Advanced Example
 
-- **[Simple Reporting](./examples/advanced/simple-reporting/)**: A complete workflow to index a PDF, build a graph, and generate a report.
+- **[Graph RAG Reporting](./examples/advanced/graph-rag-reporting/)**: A complete workflow to turn a PDF into a knowledge graph and generate a report.
 
 ## 🤝 Contributing
 

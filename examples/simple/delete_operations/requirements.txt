@@ -1,2 +1,2 @@
-t2g-sdk==1.0.0rc14
+t2g-sdk==1.0.0rc15
 python-dotenv
