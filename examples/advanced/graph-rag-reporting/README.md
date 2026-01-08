@@ -17,7 +17,7 @@ This guide demonstrates how to leverage the T2G SDK for building a powerful Grap
 
     ```bash
     pip install -r requirements.txt
-    docker compose up -d
+    docker compose up --build -d
     ```
 
 > ⏳ The embedder service may take a few minutes to fully boot on first run, as it needs to download the underlying model.
@@ -40,6 +40,10 @@ This guide demonstrates how to leverage the T2G SDK for building a powerful Grap
       ```bash
       python report.py "What are the main activities of L'Oréal?"
       ```
+
+4.  **Access the web interface**:
+
+Open your browser and navigate to http://localhost:8501
 
 ## Cleaning Up 🧹
 

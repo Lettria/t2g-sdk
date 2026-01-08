@@ -1,4 +1,25 @@
+name: graph-rag-reporting
 services:
+  # Frontend Application
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    # volumes:
+    #   - .:/app
+    networks:
+      - main_local
+    depends_on:
+      - neo4j
+      - tei_embedder
+    env_file:
+      - .env
+    environment:
+      - NEO4J_URI=neo4j://neo4j:7687
+      - QDRANT_URL=http://qdrant:6333
+      - EMBEDDER_URL=http://tei_embedder:80
+    restart: unless-stopped
+
   # Graph Database
   neo4j:
     image: neo4j:latest

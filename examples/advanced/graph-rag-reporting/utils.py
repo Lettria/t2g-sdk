@@ -25,7 +25,7 @@ async def wait_for_neo4j(timeout: int = 600):
         except Exception:
             pass
         logging.info("Waiting for Neo4j to be ready...")
-        await asyncio.sleep(5)
+        await asyncio.sleep(2)
     raise T2GException("Timed out waiting for Neo4j to be ready.")
 
 
@@ -40,8 +40,9 @@ async def wait_for_embedder(timeout: int = 600):
                 if response.status_code == 200:
                     logging.info("Embedder is ready.")
                     return
-        except httpx.RequestError:
+        except httpx.RequestError as e:
+            logging.error(f"Error checking embedder health: {e}")
             pass
         logging.info("Waiting for embedder to be ready...")
-        await asyncio.sleep(5)
+        await asyncio.sleep(2)
     raise T2GException("Timed out waiting for embedder to be ready.")
