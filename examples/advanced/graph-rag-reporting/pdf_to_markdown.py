@@ -4,6 +4,8 @@ import sys
 from google import genai
 from google.genai import types as genai_types
 
+logging.getLogger("google_genai").setLevel(logging.ERROR)
+
 
 async def main(script_input: str):
 
