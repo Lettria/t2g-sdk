@@ -1,12 +1,15 @@
 import asyncio
 import logging
+import sys
 from google import genai
 from google.genai import types as genai_types
 
 
-async def main():
+async def main(script_input: str):
 
-    file_name = "assets/LOREAL_Rapport_Annuel_2024.pdf"
+    file_name = (
+        script_input if script_input else "assets/LOREAL_Rapport_Annuel_2024.pdf"
+    )
     doc_data = None
     with open(file_name, "rb") as f:
         doc_data = f.read()
@@ -37,4 +40,5 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    script_input = sys.argv[1] if len(sys.argv) > 1 else "Money KPIs"
+    asyncio.run(main(script_input))
