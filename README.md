@@ -29,7 +29,7 @@ Lettria's Text-to-Graph SDK is designed to solve this problem. It transforms you
 ## 📦 Installation
 
 ```bash
-pip install t2g-sdk==1.0.0-rc.14
+pip install t2g-sdk==1.0.0-rc.15
 ```
 
 ## 🚀 Quick Start
