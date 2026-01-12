@@ -1,3 +1,6 @@
+⚠️ **WARNING: This package has been moved!** ⚠️  
+Please use the new repository: [Lettria/perseus-client](https://github.com/Lettria/perseus-client)
+
 # Lettria's Text-to-Graph SDK 🚀
 
 [![PyPI version](https://badge.fury.io/py/t2g-sdk.svg)](https://badge.fury.io/py/t2g-sdk)
